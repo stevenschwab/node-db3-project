@@ -12,6 +12,10 @@ join shipper sh on ord.shipVia = sh.id
 where ord.orderDate < '2012-08-09'
 
 -- Display the name and quantity of the products ordered in order with Id 10251. Sort by ProductName. Shows 3 records.
-
+select productName, quantity
+from orderDetail od
+join product pr on od.productId = pr.id
+where orderId = 10251
+order by productName
 
 -- Display the OrderID, Customer's Company Name and the employee's LastName for every order. All columns should be labeled clearly. Displays 16,789 records.
