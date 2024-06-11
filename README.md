@@ -8,7 +8,7 @@ Your assignment page on Canvas should contain instructions for submitting this p
 
 ### Database
 
-Open `data/schemes.db3` using a graphical tool like SQLite Studio and study the data inside the `schemes` and `steps` tables. The data can be reset at any time by executing `npm run seed`.
+Open `data/schemes.db3` using a graphical tool like SQLite Studio and study the data inside the `schemes` and `steps` tables. The data can be reset at any time by executing `npm run resetdb`.
 
 ### API
 
