@@ -19,3 +19,7 @@ where orderId = 10251
 order by productName
 
 -- Display the OrderID, Customer's Company Name and the employee's LastName for every order. All columns should be labeled clearly. Displays 16,789 records.
+select ord.id as 'order_id', companyName as 'customer_company_name', lastName as 'employee_last_name'
+from northwind."Order" ord
+join customer cu on ord.customerId = cu.id
+join employee em on ord.employeeId = em.id
