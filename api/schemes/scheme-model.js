@@ -9,7 +9,6 @@ async function find() { // EXERCISE A
     .orderBy('sc.scheme_id', 'ASC')
 
     return schemes
-
   /*
     1A- Study the SQL query below running it in SQLite Studio against `data/schemes.db3`.
     What happens if we change from a LEFT join to an INNER join?
@@ -30,12 +29,20 @@ async function find() { // EXERCISE A
 
 async function findById(scheme_id) { // EXERCISE B
   const schemeSteps = await db('schemes as sc')
-    .select('sc.scheme_name', 'st.*')
     .leftJoin('steps as st', 'sc.scheme_id', '=', 'st.scheme_id')
+    .select('sc.scheme_name', 'st.*')
     .where('sc.scheme_id', scheme_id)
     .orderBy('st.step_number', 'ASC')
 
-    return schemeSteps
+  let result = schemeSteps.reduce((acc, schemeStep) => {
+    if (schemeStep.instructions) {
+      const {step_id, step_number, instructions} = schemeStep
+      acc.steps.push({ step_id, step_number, instructions })
+    }
+    return acc
+  }, { scheme_id: schemeSteps[0].scheme_id, scheme_name: schemeSteps[0].scheme_name, steps: [] })
+
+  return result
   /*
     1B- Study the SQL query below running it in SQLite Studio against `data/schemes.db3`:
 
