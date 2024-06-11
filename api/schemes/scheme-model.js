@@ -151,7 +151,7 @@ async function findSteps(scheme_id) { // EXERCISE C
   */
 }
 
-async function add(scheme) { // EXERCISE D
+function add(scheme) { // EXERCISE D
   return db('schemes')
     .insert(scheme)
     .then(([id]) => {
@@ -162,9 +162,9 @@ async function add(scheme) { // EXERCISE D
   */
 }
 
-async function addStep(scheme_id, step) { // EXERCISE E
+function addStep(scheme_id, step) { // EXERCISE E
   return db('steps')
-    .insert(step)
+    .insert({ ...step, scheme_id })
     .then(() => {
       return findSteps(scheme_id)
     })
