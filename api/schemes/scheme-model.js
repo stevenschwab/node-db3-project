@@ -2,7 +2,7 @@ const db = require('../../data/db-config')
 
 async function find() { // EXERCISE A
   const schemes = await db('schemes as sc')
-    .leftJoin('steps as st', 'sc.scheme_id', '=', 'st.scheme_id')
+    .leftJoin('steps as st', 'sc.scheme_id', 'st.scheme_id')
     .count('st.step_id as number_of_steps')
     .groupBy('sc.scheme_id')
     .select('sc.*')
@@ -162,7 +162,12 @@ async function add(scheme) { // EXERCISE D
   */
 }
 
-function addStep(scheme_id, step) { // EXERCISE E
+async function addStep(scheme_id, step) { // EXERCISE E
+  return db('steps')
+    .insert(step)
+    .then(() => {
+      return findSteps(scheme_id)
+    })
   /*
     1E- This function adds a step to the scheme with the given `scheme_id`
     and resolves to _all the steps_ belonging to the given `scheme_id`,
